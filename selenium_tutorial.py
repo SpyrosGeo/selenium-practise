@@ -9,21 +9,21 @@ PATH = '/home/thatguy/My-repos/Python/selenium_tutorial/chromedriver'
 driver = webdriver.Chrome(PATH)
 driver.get("https://techwithtim.net")
 
-page_title = driver.title
-search = driver.find_element_by_name("s")
-search.send_keys('test')
-search.send_keys(Keys.RETURN)
+link = driver.find_element_by_link_text("Python Programming")
+link.click()
 
 try:
-    main = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "main"))
+    element = WebDriverWait(driver,10).until(
+        EC.presence_of_element_located((By.LINK_TEXT,"Beginner Python Tutorials"))
     )
-
-    articles = main.find_elements_by_tag_name('article')
-    print(articles)
-    for article in articles:
-        header =article.find_element_by_class_name('entry-summary')
-        print(header.text)
-finally:
+    element.click()
+    element = WebDriverWait(driver,10).until(
+        EC.presence_of_element_located((By.ID, "sow-button-19310003"))
+    )
+    element.click()
+    driver.back()
+    driver.back()
+    driver.back()
+  
+except:
     driver.quit()
-
